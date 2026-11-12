@@ -1,0 +1,31 @@
+﻿.human-container
+{
+	display:flex;
+	justify-content:space-between;
+}
+.human-text-fields
+{
+	width:55%;
+	min-width:400px;
+}
+.human-edit-fields
+{
+	width: 40%;
+	min-width: 400px;
+}
+.photo-area
+{
+	width:40%;
+}
+	.photo-area > div
+	{
+		display:inline-block;
+		width:100%;
+		height:auto;
+		min-height:68%;
+		border:solid 1px;
+	}
+.photo-area img
+{
+	width:100%;
+}
