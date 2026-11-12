@@ -1,0 +1,38 @@
+@using System.Linq.Expressions;
+@typeparam TItem
+
+<div class="mb-3">
+	@if (Required)
+	{
+		<span class="text-danger">*</span>
+	}
+	<label for="@Id" class="form-label">@Label:</label>
+	<InputSelect id="@Id" @bind-Value="Value" class="form-control">
+		@if (Placeholder is not null)
+		{
+			<option value="0" disabled>--- @Placeholder ---</option>
+		}
+		@foreach (TItem item in Items)
+		{
+			<option value="@ValueSelector(item)">@TextSelector(item)</option>
+		}
+	</InputSelect>
+	@if (ValidationFor is not null)
+	{
+		<ValidationMessage For="ValidationFor" class="text-danger" />
+	}
+</div>
+
+@code
+{
+	[Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; } = [];
+	[Parameter, EditorRequired] public Func<TItem, int> ValueSelector { get; set; } = default!;
+	[Parameter, EditorRequired] public Func<TItem, string> TextSelector { get; set; } = default!;
+	[Parameter, EditorRequired] public string Id { get; set; } = default!;
+	[Parameter, EditorRequired] public string Label { get; set; } = default!;
+	[Parameter] public bool Required { get; set; }
+	[Parameter] public string? Placeholder { get; set; }
+	[Parameter] public Expression<Func<int>>? ValidationFor { get; set; }
+	[Parameter] public int Value { get; set; }
+	[Parameter] public EventCallback<int> ValueChanged { get; set; }
+}
